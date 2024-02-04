@@ -1,6 +1,9 @@
 #include <MIDI.h>
 #include <LiquidCrystal_I2C.h>
 #include <OneButton.h>
+#include <sqlite3.h>
+#include <SPIFFS.h>
+
 
 int lcdColumns = 20;
 int lcdRows = 4;
@@ -99,26 +102,25 @@ void setup() {
   // button 8
   button8.attachClick(button8Press);
   button8.attachLongPressStart(button8LongPressStart);
-
+  telaStart();
   seletorStomp(true, true, true, true, true, true, true, true, true, true, true, true, true);
 }
 
-
-void loop() {
-  /*
-  // set cursor to first column, first row
+void telaStart() {
   lcd.setCursor(0, 0);
-  // print message
-  lcd.print("Hello, World!");
-  delay(1000);
-  // clears the display to print new message
+  lcd.print("--------------------");
+  lcd.setCursor(0, 1);
+  lcd.print("-  AMPERO STOMP 2  -");
+  lcd.setCursor(0, 2);
+  lcd.print("-    CONTROLLER    -");
+  lcd.setCursor(0, 3);
+  lcd.print("--------------------");
+  ;
+  delay(2000);
   lcd.clear();
-  // set cursor to first column, second row
-  lcd.setCursor(0,1);
-  lcd.print("Hello, World!");
-  delay(1000);
-  lcd.clear(); 
-  */
+}
+void loop() {
+
   button1.tick();
   button2.tick();
   button3.tick();
@@ -168,7 +170,7 @@ void button1Press() {
   lcd.clear();
   lcd.setCursor(0, 1);
   lcd.print("BANK UP");
-    enviarControlChange(27, 0, 1);
+  enviarControlChange(27, 0, 1);
 }
 
 void button1LongPressStart() {
@@ -191,7 +193,7 @@ void button2Press() {
   lcd.clear();
   lcd.setCursor(0, 1);
   lcd.print("BANK DOWN");
-    enviarControlChange(26, 0, 1);
+  enviarControlChange(26, 0, 1);
 }
 
 void button2LongPressStart() {

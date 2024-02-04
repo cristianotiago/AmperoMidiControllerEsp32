@@ -47,11 +47,14 @@ void seletorStomp(
   String bB5 = (btnB5 == true ? "BE" : "B5");
   String bB6 = (btnB6 == true ? "BF" : "B6");
   lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("--------------------");
   lcd.setCursor(0, 1);
-  lcd.print(" " + String(aA1) + " " + String(aA2) + " " + String(aA3) + " " + String(aA4) + " " + String(aA5) + " " + String(aA6) + String(naoEhAouB == true ? "<" : " "));
+  lcd.print("-" + String(aA1) + " " + String(aA2) + " " + String(aA3) + " " + String(aA4) + " " + String(aA5) + " " + String(aA6) + String(naoEhAouB == true ? "<" : " ") + "-");
   lcd.setCursor(0, 2);
-  lcd.print(" " + String(bB1) + " " + String(bB2) + " " + String(bB3) + " " + String(bB4) + " " + String(bB5) + " " + String(bB6) + String(naoEhAouB != true ? "<" : " "));
-
+  lcd.print("-" + String(bB1) + " " + String(bB2) + " " + String(bB3) + " " + String(bB4) + " " + String(bB5) + " " + String(bB6) + String(naoEhAouB != true ? "<" : " ") + "-");
+  lcd.setCursor(0, 3);
+  lcd.print("--------------------");
   int sA1 = (btnA1 == true ? 64 : 63);
   int sA2 = (btnA2 == true ? 64 : 63);
   int sA3 = (btnA3 == true ? 64 : 63);
@@ -84,5 +87,3 @@ void seletorStomp(
   enviarControlChange(efeitosMatrix[1][4], sB5, 1);
   enviarControlChange(efeitosMatrix[1][5], sB6, 1);
 }
-
-
