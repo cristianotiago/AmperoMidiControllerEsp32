@@ -1,9 +1,10 @@
 #include <MIDI.h>
 #include <LiquidCrystal_I2C.h>
 #include <OneButton.h>
+/*
 #include <sqlite3.h>
 #include <SPIFFS.h>
-
+*/
 
 int lcdColumns = 20;
 int lcdRows = 4;
@@ -63,9 +64,11 @@ OneButton button7(0, true, true);
 OneButton button8(2, true, true);
 
 #include "ModoStomp.h"
+//#include "DataBase.h"
+
 
 void setup() {
-
+  Serial.begin(115200);
   lcd.init();
   lcd.backlight();
   lcd.clear();
@@ -115,7 +118,7 @@ void telaStart() {
   lcd.print("-    CONTROLLER    -");
   lcd.setCursor(0, 3);
   lcd.print("--------------------");
-  ;
+
   delay(2000);
   lcd.clear();
 }
@@ -165,11 +168,16 @@ void button1Press() {
   //banco para cima
   lcd.clear();
 
-  //writeBigString("  B A N K", 0, 0);
-  //writeBigString("      U P", 0, 2);
+
   lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("--------------------");
   lcd.setCursor(0, 1);
-  lcd.print("BANK UP");
+  lcd.print("-       BANK       -");
+  lcd.setCursor(0, 2);
+  lcd.print("-        UP        -");
+  lcd.setCursor(0, 3);
+  lcd.print("--------------------");
   enviarControlChange(27, 0, 1);
 }
 
@@ -186,34 +194,62 @@ void button1LongPressStart() {
 
 void button2Press() {
   //banco para baixo
-  lcd.clear();
 
-  // writeBigString("  B A N K", 0, 0);
-  // writeBigString("      D N", 0, 2);
   lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("--------------------");
   lcd.setCursor(0, 1);
-  lcd.print("BANK DOWN");
+  lcd.print("-       BANK       -");
+  lcd.setCursor(0, 2);
+  lcd.print("-       DOWN       -");
+  lcd.setCursor(0, 3);
+  lcd.print("--------------------");
   enviarControlChange(26, 0, 1);
 }
 
-void button2LongPressStart() {
+void ativarAfinador(boolean ativar, boolean mostrarTela) {
   //afinador
   if (afinadorMode == false) {
     isAfinador(true);
-    lcd.clear();
 
-    lcd.setCursor(0, 1);
-    lcd.print("TUNER");
+    if (mostrarTela == true) {
+
+      lcd.clear();
+      lcd.setCursor(0, 0);
+      lcd.print("--------------------");
+      lcd.setCursor(0, 1);
+      lcd.print("-      TUNER       -");
+      lcd.setCursor(0, 2);
+      lcd.print("-       ON         -");
+      lcd.setCursor(0, 3);
+      lcd.print("--------------------");
+    }
     enviarControlChange(60, 64, 1);
   } else if (afinadorMode == true) {
     isAfinador(false);
-    lcd.clear();
-    lcd.setCursor(0, 1);
-    lcd.print("     ");
-    //writeBigString("         ", 0, 1);
+
+    if (mostrarTela == false) {
+      lcd.clear();
+      lcd.setCursor(0, 0);
+      lcd.print("--------------------");
+      lcd.setCursor(0, 1);
+      lcd.print("-      TUNER       -");
+      lcd.setCursor(0, 2);
+      lcd.print("-      OFF         -");
+      lcd.setCursor(0, 3);
+      lcd.print("--------------------");
+    }
     seletorStomp(btnA1, btnA2, btnA3, btnA4, btnA5, btnA6, btnB1, btnB2, btnB3, btnB4, btnB5, btnB6, naoEhAouB);
     enviarControlChange(60, 63, 1);
   }
+}
+void button2LongPressStart() {
+ /* if (afinadorMode == false) {
+    ativarAfinador(true,true);
+  } else {
+    ativarAfinador(false,true);
+  }
+  */
 }
 
 void isAfinador(boolean valor) {

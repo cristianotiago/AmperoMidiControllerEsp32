@@ -47,3 +47,13 @@ int db_open(const char *filename, sqlite3 **db) {
    }
    return rc;
 }
+
+void montarBanco(){
+  sqlite3 *db1;
+   int rc;
+
+    if (!SPIFFS.begin(FORMAT_SPIFFS_IF_FAILED)) {
+       Serial.println("Failed to mount file system");
+       return;
+   }
+}
