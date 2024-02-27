@@ -1,10 +1,10 @@
 #include <MIDI.h>
 #include <LiquidCrystal_I2C.h>
 #include <OneButton.h>
-/*
+
 #include <sqlite3.h>
 #include <SPIFFS.h>
-*/
+
 
 int lcdColumns = 20;
 int lcdRows = 4;
@@ -64,9 +64,13 @@ OneButton button7(0, true, true);
 OneButton button8(2, true, true);
 
 #include "ModoStomp.h"
-//#include "DataBase.h"
-
-
+#include "DataBase.h"
+/*
+void setup_teste() {
+  Serial.begin(115200);
+  montarBanco();
+}
+*/
 void setup() {
   Serial.begin(115200);
   lcd.init();
@@ -206,7 +210,7 @@ void button2Press() {
   lcd.print("--------------------");
   enviarControlChange(26, 0, 1);
 }
-
+/*
 void ativarAfinador(boolean ativar, boolean mostrarTela) {
   //afinador
   if (afinadorMode == false) {
@@ -243,22 +247,19 @@ void ativarAfinador(boolean ativar, boolean mostrarTela) {
     enviarControlChange(60, 63, 1);
   }
 }
+*/
 void button2LongPressStart() {
- /* if (afinadorMode == false) {
-    ativarAfinador(true,true);
-  } else {
-    ativarAfinador(false,true);
-  }
-  */
+ 
 }
 
-void isAfinador(boolean valor) {
-  afinadorMode = valor;
-}
+
 //{48, 49, 50, 51, 52 , 53 }, //A1 A2 A3 A4 A5 A6
 //{54, 55, 56, 57, 58 , 59 }  //B1 B2 B3 B4 B4 B6
 
 void button3Press() {
+
+ 
+
   if (naoEhAouB == true) {
     if (btnA1 == true) {
       btnA1 = false;
@@ -296,6 +297,7 @@ void button3LongPressStart() {
 }
 
 void button4Press() {
+  
   if (naoEhAouB == true) {
     if (btnA2 == true) {
       btnA2 = false;
@@ -320,6 +322,8 @@ void button4LongPressStart() {
 
 
 void button5Press() {
+  
+
   if (naoEhAouB == true) {
     if (btnA3 == true) {
       btnA3 = false;
@@ -343,6 +347,9 @@ void button5LongPressStart() {
 }
 
 void button6Press() {
+
+  
+
   if (naoEhAouB == true) {
     if (btnA4 == true) {
       btnA4 = false;
@@ -367,6 +374,9 @@ void button6LongPressStart() {
 
 
 void button7Press() {
+
+  
+
   if (naoEhAouB == true) {
     if (btnA5 == true) {
       btnA5 = false;
@@ -390,6 +400,7 @@ void button7LongPressStart() {
 }
 
 void button8Press() {
+  
   if (naoEhAouB == true) {
     if (btnA6 == true) {
       btnA6 = false;
